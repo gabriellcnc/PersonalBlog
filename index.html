@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Em Construção</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;700&display=swap');
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --black:   #0a0a0a;
+      --surface: #111111;
+      --yellow:  #f5c400;
+      --yellow2: #ffe566;
+      --text:    #e8e8e8;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      background-color: var(--black);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ── grid overlay ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(245,196,0,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245,196,0,.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── vignette ── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 40%, var(--black) 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      background: var(--surface);
+      border: 1px solid rgba(245,196,0,.18);
+      border-radius: 4px;
+      padding: 64px 72px;
+      text-align: center;
+      max-width: 520px;
+      width: 90%;
+      box-shadow:
+        0 0 0 1px rgba(245,196,0,.06),
+        0 32px 80px rgba(0,0,0,.7),
+        0 0 60px rgba(245,196,0,.04) inset;
+    }
+
+    /* ── spinner ── */
+    .spinner-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+
+    .spinner {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: 3px solid rgba(245,196,0,.12);
+      border-top-color: var(--yellow);
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ── text ── */
+    .label {
+      display: block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 16px;
+      opacity: .7;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 6vw, 2.8rem);
+      font-weight: 700;
+      letter-spacing: -.02em;
+      line-height: 1.1;
+      color: var(--text);
+    }
+
+    h1 span {
+      color: var(--yellow);
+    }
+
+    /* ── progress bar ── */
+    .progress-track {
+      margin-top: 44px;
+      height: 2px;
+      background: rgba(245,196,0,.1);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--yellow), var(--yellow2));
+      border-radius: 2px;
+      animation: load 3.2s cubic-bezier(.4,0,.2,1) infinite;
+    }
+
+    @keyframes load {
+      0%   { width: 0%;   opacity: 1; }
+      80%  { width: 100%; opacity: 1; }
+      100% { width: 100%; opacity: 0; }
+    }
+
+    /* ── dots ── */
+    .dots {
+      margin-top: 28px;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .dots span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--yellow);
+      opacity: .2;
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+
+    .dots span:nth-child(2) { animation-delay: .2s; }
+    .dots span:nth-child(3) { animation-delay: .4s; }
+
+    @keyframes pulse {
+      0%, 100% { opacity: .15; transform: scale(.9); }
+      50%       { opacity: .9;  transform: scale(1.2); }
+    }
+
+    /* ── reduced motion ── */
+    @media (prefers-reduced-motion: reduce) {
+      .spinner, .progress-fill, .dots span {
+        animation: none;
+      }
+      .spinner { border-top-color: var(--yellow); }
+      .progress-fill { width: 60%; opacity: 1; }
+      .dots span { opacity: .6; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="spinner-wrap">
+      <div class="spinner"></div>
+    </div>
+
+    <span class="label">site</span>
+    <h1>em <span>construção</span></h1>
+
+    <div class="progress-track">
+      <div class="progress-fill"></div>
+    </div>
+
+    <div class="dots">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</body>
+</html>
